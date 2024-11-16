@@ -27,10 +27,10 @@
         <tr>
             <td>
                 <strong>{{ 'contact'|trans }}</strong>:
-                {{ invoice['template.contact']|nl2str(' – ') }}
+                {{ invoice['template.contact']|nl2str(' / ') }}
                 <br>
                 <strong>{{ 'invoice_bank_account'|trans }}</strong>:
-                {{ invoice['template.payment_details']|nl2str(' – ') }}
+                {{ invoice['template.payment_details']|nl2str(' / ') }}
             </td>
             <td align="right">
                 {{ 'export.page_of'|trans({'%page%': '{PAGENO}', '%pages%': '{nb}'}) }}
@@ -40,7 +40,7 @@
 </htmlpagefooter>
 <sethtmlpagefooter page="ALL" value="on" name="footer" show-this-page="1" />
 mpdf-->
-    <table class="addresses">
+    <table class="addresses" style="margin-top: 50px;">
         <tr>
             <td style="width:60%">
                 {{ 'invoice.to'|trans }}
@@ -59,7 +59,7 @@ mpdf-->
                 <strong>{{ invoice['template.company'] }}</strong>
                 <br>
                 {{ invoice['template.address']|trim|nl2br }}
-                {% if invoice['template.vat_id'] is not empty %}
+                {% if false and invoice['template.vat_id'] is not empty %}
                     <br>
                     {{ 'vat_id'|trans }}:
                     {{ invoice['template.vat_id'] }}
@@ -68,25 +68,13 @@ mpdf-->
         </tr>
     </table>
 
-    <p>
+    <p style="margin-top: 50px;">
         {{ 'invoice.number'|trans }}:
         {{ invoice['invoice.number'] }}
 
         <br>
-        {{ 'invoice.due_days'|trans }}:
-        {{ invoice['invoice.due_date'] }}
-
-        {% if invoice['customer.number'] is not empty %}
-            <br>
-            {{ 'number'|trans }}:
-            {{ invoice['customer.number'] }}
-        {% endif %}
-
-        {% if invoice['query.project.order_number'] is defined and invoice['query.project.order_number'] is not empty %}
-            <br>
-            {{ 'orderNumber'|trans }}:
-            {{ invoice['query.project.order_number'] }}
-        {% endif %}
+        Steuernummer:
+        {{ invoice['template.vat_id'] }}
     </p>
 
     {% if invoice['customer.invoice_text'] is not empty%}
